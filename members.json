@@ -1,0 +1,122 @@
+{
+    "members": {
+      "faculty": [
+        {
+          "name": "Danfei Xu",
+          "role": "Lab Director",
+          "website": "https://faculty.cc.gatech.edu/~danfei/",
+          "image": "member_pics/danfei_xu.jpg"
+        }
+      ],
+      "phd_students": [
+        {
+          "name": "Shuo Cheng",
+          "role": "CS Ph.D. Student",
+          "website": "https://sites.google.com/view/shuocheng",
+          "image": "member_pics/shuo_cheng.jpg"
+        },
+        {
+          "name": "Shangjie Xue",
+          "role": "CS Ph.D. Student",
+          "website": "https://xsj01.github.io/",
+          "image": "member_pics/shangjie_xue.jpg"
+        },
+        {
+          "name": "Vaibhav Saxena",
+          "role": "ML Ph.D. Student",
+          "website": "https://www.cs.toronto.edu/~vaibhav/",
+          "image": "member_pics/vaibhav_saxena.jpg"
+        },
+        {
+          "name": "Utkarsh Mishra",
+          "role": "ROBO Ph.D. Student",
+          "website": "http://umishra.me/",
+          "image": "member_pics/utkarsh_mishra.jpg"
+        },
+        {
+          "name": "Fukang Liu",
+          "role": "ROBO Ph.D. Student",
+          "website": "https://fukangl.github.io/",
+          "image": "member_pics/fukang_liu.jpg"
+        },
+        {
+          "name": "Nadun Ranawaka",
+          "role": "ROBO Ph.D. Student",
+          "website": "https://www.linkedin.com/in/nadun-ranawaka-arachchige-87701b137/",
+          "image": "member_pics/nadun_ranawaka.jpg"
+        },
+        {
+          "name": "Zhenyang Chen",
+          "role": "ECE Ph.D. Student",
+          "website": "https://chenzheny.github.io/",
+          "image": "member_pics/zhenyang_chen.jpg"
+        },
+        {
+          "name": "Simar Kareer",
+          "role": "CS Ph.D. Student",
+          "website": "https://simarkareer.com/",
+          "image": "member_pics/simar_kareer.jpg"
+        }
+      ],
+      "masters_students": [
+        {
+          "name": "Dhruv Patel",
+          "role": "M.S. Student",
+          "website": "https://dhruv2012.github.io/",
+          "image": "member_pics/dhruv_patel.jpg"
+        },
+        {
+          "name": "Woochul Shin",
+          "role": "M.S. Student",
+          "website": "https://www.linkedin.com/in/woochulshin/",
+          "image": "member_pics/woochul_shin.jpg"
+        },
+        {
+          "name": "Yangcen Liu",
+          "role": "M.S. Student",
+          "website": "https://yangcenliu.github.io/homepage.github.io/",
+          "image": "member_pics/yangcen_liu.jpg"
+        },
+        {
+          "name": "Yixin Zhang",
+          "role": "M.S. Student",
+          "website": "#",
+          "image": "member_pics/yixin_zhang.jpg"
+        }
+      ],
+      "undergrad_students": [
+        {
+          "name": "Kuancheng Wang",
+          "role": "Undergrad Student",
+          "website": "https://www.linkedin.com/in/kuanchengwang/",
+          "image": "member_pics/kuancheng_wang.jpg"
+        },
+        {
+          "name": "Grace Guo",
+          "role": "Undergrad Student",
+          "website": "#",
+          "image": "member_pics/grace_guo.jpg"
+        },
+        {
+          "name": "Alan Tian",
+          "role": "Undergrad Student",
+          "website": "https://www.linkedin.com/in/alan-tian-a07012205/",
+          "image": "member_pics/alan_tian.jpg"
+        },
+        {
+          "name": "Ryan Punamiya",
+          "role": "Undergrad Student",
+          "website": "#",
+          "image": "member_pics/ryan_punamiya.jpg"
+        }
+      ],
+      "visiting_students": [
+        {
+          "name": "Yunhao Luo",
+          "role": "Visiting Student",
+          "website": "https://devinluo27.github.io/",
+          "image": "member_pics/yunhao_luo.jpg"
+        }
+      ]
+    }
+  }

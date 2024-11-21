@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Learning and Reasoning Lab (RL2) at Georgia Tech</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        /* Add these new styles for the lab name and nav layout */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1rem 2rem;  /* increased horizontal padding */
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex;  /* added flex display */
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .lab-name {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: #333;
+            text-decoration: none;
+            letter-spacing: -0.5px;  /* tighter letter spacing for modern look */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        /* Update the existing nav a style */
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #007bff;
+        }
+
+        /* Add responsive styles */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+            
+            .lab-name {
+                font-size: 1rem;
+            }
+        }
+
+        .page {
+            display: none;
+            padding: 6rem 2rem 2rem;
+        }
+
+        .active {
+            display: block;
+        }
+        /* Add these styles for video gallery and news */
+        #home {
+            position: relative;
+            min-height: 100vh;
+            background: #f5f5f5;
+            padding-top: 80px;
+        }
+
+        .home-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .intro-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 1rem;
+            position: relative;
+        }
+
+        .intro-section h1 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .university-name {
+            color: #666;
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+
+        .intro-description {
+            color: #444;
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            padding-bottom: 2rem;
+            position: relative;
+        }
+
+        .intro-description strong {
+            color: #333;
+            font-weight: 600;
+        }
+
+        /* Divider line */
+        .intro-description::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;  /* Width of the line */
+            height: 1px;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(0, 0, 0, 0.1) 20%,
+                rgba(0, 0, 0, 0.1) 80%,
+                transparent
+            );
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .intro-section h1 {
+                font-size: 2rem;
+            }
+            
+            .university-name {
+                font-size: 1rem;
+            }
+            
+            .intro-description {
+                font-size: 1rem;
+                padding: 0 1rem 2rem 1rem;
+            }
+            
+            .intro-description::after {
+                width: 150px;  /* Slightly shorter line on mobile */
+            }
+        }
+
+        .news-container {
+        max-width: 800px;  /* reduced from 1200px */
+        margin: 0 auto 3rem auto;
+        }
+
+        .news-section {
+            padding: 1rem;
+            max-height: 200px;
+            overflow-y: auto;
+            background: transparent;  /* changed from white */
+            border: none;  /* removed border */
+        }
+
+        .news-item {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .news-date {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.2rem;
+        }
+
+        .news-content {
+                color: #333;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        /* Subtle scrollbar */
+        .news-section::-webkit-scrollbar {
+            width: 6px;  /* made thinner */
+        }
+
+        .news-section::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .news-section::-webkit-scrollbar-thumb {
+            background: #ddd;
+            border-radius: 3px;
+        }
+
+        .news-section::-webkit-scrollbar-thumb:hover {
+            background: #ccc;
+        }
+        .section-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .main-video {
+            width: 100%;
+            max-width: 1200px;  /* match container width */
+            height: 600px;      /* maintain 16:9 ratio for 1200px width */
+            border-radius: 12px;
+            object-fit: cover;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .main-video-container {
+            margin-bottom: 2rem;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .video-item {
+            position: relative;
+            cursor: pointer;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: translateY(-2px);
+        }
+
+        .video-item video {
+            width: 100%;
+            height: 150px;  /* reduced height */
+            object-fit: cover;
+            border-radius: 6px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-item:hover video {
+            opacity: 1;
+        }
+
+        .video-item.active {
+            border-color: #007bff;
+        }
+
+        .video-item.active video {
+            opacity: 1;
+        }
+
+        /* Add label for clearer indication */
+        .video-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+        }
+        /* Custom scrollbar for the news section */
+        .news-section::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .news-section::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .news-section::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        .news-section::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+
+
+        /* Update these member-related styles */
+        .member-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .member-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;  /* reduced gap between cards */
+            padding: 1rem;
+        }
+
+        .member-card {
+            text-align: center;
+            padding: 0.8rem;  /* reduced padding */
+            background: #f5f5f5;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            width: 180px;  /* fixed width for cards */
+            margin: 0 auto;  /* center cards in grid */
+        }
+
+        .member-card:hover {
+            transform: translateY(-5px);
+        }
+        .member-card img {
+            width: 150px;
+            height: 150px;
+            border-radius: 8px;  /* Changed from 50% to 12px for square with rounded corners */
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+
+        .member-card h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: #333;
+        }
+
+        .member-card p {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.3rem;
+            line-height: 1.2;
+        }
+
+        .member-card a {
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .member-card a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 1200px) {
+            .member-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .member-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .member-grid {
+                grid-template-columns: repeat(1, 1fr);
+            }
+            .member-card {
+                width: 160px;  /* slightly smaller on mobile */
+            }
+        }
+        .publication-list {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .publication {
+            display: flex;
+            margin-bottom: 1rem;  /* reduced from 2rem */
+            padding: 1rem;        /* reduced from 1.5rem */
+            background: #f5f5f5;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .publication:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .publication-thumbnail {
+            flex: 0 0 200px;
+            margin-right: 1.5rem;
+            position: relative;
+        }
+
+        .publication-thumbnail img,
+        .publication-thumbnail video {
+            width: 200px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .publication-thumbnail:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .play-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .play-icon:after {
+            content: '';
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 8px 0 8px 16px;
+            border-color: transparent transparent transparent #000;
+            margin-left: 4px;
+        }
+
+        .publication-content {
+            flex: 1;
+        }
+
+        .publication-title {
+            color: #333;
+            margin-bottom: 0.25rem;  /* reduced from 0.5rem */
+            font-size: 1.1rem;      /* reduced from 1.2rem */
+            font-weight: 600;
+        }
+
+        .publication-authors {
+            color: #666;
+            margin-bottom: 0.25rem;  /* reduced from 0.5rem */
+            font-size: 0.9rem;      /* reduced from 0.95rem */
+        }
+
+        .publication-venue {
+            color: #888;
+            font-style: italic;
+            margin-bottom: 0.25rem;  /* reduced from 0.5rem */
+            font-size: 0.85rem;     /* reduced from 0.9rem */
+        }
+
+        .publication-abstract {
+            color: #444;
+            line-height: 1.4;      /* reduced from 1.5 */
+            margin-bottom: 0.5rem; /* reduced from 1rem */
+            font-size: 0.9rem;
+        }
+
+        .publication-links {
+            margin-top: 0.5rem;    /* reduced from 1rem */
+        }
+
+        .publication-links a {
+            display: inline;
+            margin-right: 1rem;
+            color: #333;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .publication-links a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive design for mobile devices */
+        @media (max-width: 768px) {
+            .publication {
+                flex-direction: column;
+            }
+
+            .publication-thumbnail {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .publication-thumbnail img,
+            .publication-thumbnail video {
+                width: 100%;
+                height: auto;
+                max-height: 200px;
+            }
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="#home" class="lab-name">RL2</a>
+        <div class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#members">Lab Members</a>
+            <a href="#publications">Publications</a>
+        </div>
+    </nav>
+    <div id="home" class="page active">
+        <div class="home-content">
+            <div class="intro-section">
+                <h1>Robot Learning and Reasoning Lab</h1>
+                <div class="university-name">Georgia Institute of Technology</div>
+                <p class="intro-description">
+                    We are the <strong>Robot Learning and Reasoning Lab (RL2)</strong>. Our mission is to advance the frontiers of Robotics and AI. We build full-stack systems, from robots to machine learning algorithms.
+                </p>
+            </div>
+    
+            <div class="news-container">
+                <h2 class="section-title">News</h2>
+                <div class="news-section">
+                    <div class="news-item">
+                        <div class="news-date">November 2024</div>
+                        <div class="news-content">Early Career Keynote at CoRL 2024 on <a href="https://www.youtube.com/watch?v=H-a748rN9M4">Robot Learning from Embodied Human Data</a> <a href="corl24.pdf">(slides)</a></div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">July 2024</div>
+                        <div class="news-content"> $1M NSF grant awarded to support our lab to <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2409016&HistoricalAwards=false">develop generative models for robot training and validation</a></div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">July 2024</div>
+                        <div class="news-content">Hosting workshop on <a href="https://sites.google.com/view/data-generation-for-robotics/">Data Generation for Robotics</a> at RSS 2024</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">June 2024</div>
+                        <div class="news-content">Invited talk at Toyota Research Institute</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">May 2024</div>
+                        <div class="news-content"><a href="https://ieeexplore.ieee.org/abstract/document/10227514">LEAGUE</a> awarded IEEE RA-L Best Paper Honorable Mention (5/1200) and Open-X-Embodiment won Best Conference Paper at ICRA'24</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">December 2023</div>
+                        <div class="news-content">Received support from Autodesk to work on high-precision robotic manipulation</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">November 2023</div>
+                        <div class="news-content"><a href="https://mimic-play.github.io/">MimicPlay</a> awarded Best Paper and Best Systems Paper Finalist at CoRL 2023 (2/270)</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">November 2023</div>
+                        <div class="news-content">Presenting 6 papers at CoRL 2023</div>
+                    </div>
+                    <div class="news-item">
+                        <div class="news-date">November 2023</div>
+                        <div class="news-content">Invited talk at CoRL 2023 (<a href="https://yantianzha.github.io/crl.github.io/">workshop link</a>)</div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="main-video-container">
+                <h2 class="section-title">Research Highlights</h2>
+                <video id="mainVideo" class="main-video" autoplay muted loop playsinline>
+                    <source src="" type="video/mp4">
+                </video>
+            </div>
+            
+            <!-- Add this line -->
+            <p style="text-align: center; color: #666; margin-bottom: 1rem;">Click below to switch between different research highlights</p>
+            
+            <div class="video-gallery" id="videoGallery">
+                <!-- Video thumbnails will be added here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div id="members" class="page">
+        <h2>Lab Members</h2>
+        <div class="member-container">
+            <div class="member-grid">
+                <!-- Member cards will be added here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <div id="publications" class="page">
+        <h2>Publications</h2>
+        <div class="publication-list" id="publicationList"></div>
+    </div>
+
+    <script>
+        // Video gallery data
+        const videos = [
+            {
+                url: 'assets/egomimic.mp4',
+                title: 'EgoMimic'
+            },
+            {
+                url: 'assets/nodtamp.mp4',
+                title: 'NOD-TAMP'
+            },
+            {
+                url: 'assets/mimicplay.mp4',
+                title: 'MimicPlay'
+            }
+        ];
+
+        // Add this function to initialize the main video
+        function initializeMainVideo() {
+            const mainVideo = document.getElementById('mainVideo');
+            if (videos.length > 0) {
+                mainVideo.querySelector('source').src = videos[0].url;
+                mainVideo.load();
+                mainVideo.play();
+            }
+        }
+
+        function createVideoGallery() {
+            const gallery = document.getElementById('videoGallery');
+            const mainVideo = document.getElementById('mainVideo');
+
+            videos.forEach((video, index) => {
+                const videoItem = document.createElement('div');
+                videoItem.className = 'video-item' + (index === 0 ? ' active' : '');
+                videoItem.innerHTML = `
+                    <video loop muted playsinline>
+                        <source src="${video.url}" type="video/mp4">
+                    </video>
+                    <div class="video-label">${video.title}</div>
+                `;
+
+                videoItem.addEventListener('click', () => {
+                    // Update active state
+                    document.querySelectorAll('.video-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    videoItem.classList.add('active');
+
+                    // Update main video (modified this part)
+                    mainVideo.querySelector('source').src = video.url;
+                    mainVideo.load(); // Need to call load() after changing source
+                    mainVideo.play();
+                });
+
+                gallery.appendChild(videoItem);
+            });
+        }
+        // Example publications array with mixed media types
+        const publications = []
+
+        // Function to create thumbnail HTML based on type
+        function createThumbnailHTML(thumbnail) {
+            if (thumbnail.type === "video") {
+                return `
+                    <div class="publication-thumbnail">
+                        <video 
+                            loop 
+                            muted 
+                            playsinline 
+                            ${thumbnail.poster ? `poster="${thumbnail.poster}"` : ''}
+                            onmouseover="this.play()" 
+                            onmouseout="this.pause();this.currentTime=0;">
+                            <source src="assets/${thumbnail.url}" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="publication-thumbnail">
+                        <img src="assets/${thumbnail.url}" alt="Publication thumbnail">
+                    </div>
+                `;
+            }
+        }
+
+        // Function to create HTML for a single publication
+        function createPublicationHTML(pub) {
+            const linksHTML = pub.links ? 
+                Object.entries(pub.links)
+                    .map(([key, url]) => `<a href="${url}">${key.charAt(0).toUpperCase() + key.slice(1)}</a>`)
+                    .join('') : '';
+
+            const awardsHTML = pub.awards ? 
+                `<strong>${pub.awards.join(', ')}</strong><br>` : '';
+
+            return `
+                <div class="publication">
+                    ${createThumbnailHTML(pub.thumbnail)}
+                    <div class="publication-content">
+                        <h3 class="publication-title">${pub.title}</h3>
+                        <p class="publication-authors">${pub.authors}</p>
+                        <p class="publication-venue">${pub.venue} ${awardsHTML}</p>
+                        <p class="publication-abstract">${pub.abstract}</p>
+                        <div class="publication-links">
+                            ${linksHTML}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Modified renderPublications function to load from JSON
+        async function loadAndRenderPublications() {
+            try {
+                const response = await fetch('publications.json');
+                const data = await response.json();
+                
+                const publicationList = document.getElementById('publicationList');
+                publicationList.innerHTML = data.publications
+                    .map(pub => createPublicationHTML(pub))
+                    .join('');
+            } catch (error) {
+                console.error('Error loading publications:', error);
+            }
+        }
+
+        async function loadAndRenderMembers() {
+            try {
+                const response = await fetch('members.json');
+                const data = await response.json();
+                
+                const memberGrid = document.querySelector('.member-grid');
+                memberGrid.innerHTML = '';
+                
+                const categories = ['faculty', 'phd_students', 'masters_students', 'undergrad_students', 'visiting_students'];
+                
+                categories.forEach(category => {
+                    if (data.members[category]) {
+                        data.members[category].forEach(member => {
+                            memberGrid.innerHTML += `
+                                <div class="member-card">
+                                    <img 
+                                        src="${member.image}" 
+                                        alt="${member.name}"
+                                        onerror="this.onerror=null; this.src='/api/placeholder/150/150'"
+                                    >
+                                    <h3>${member.name}</h3>
+                                    <p>${member.role}</p>
+                                    <a href="${member.website}">Website</a>
+                                </div>
+                            `;
+                        });
+                    }
+                });
+            } catch (error) {
+                console.error('Error loading members:', error);
+                document.querySelector('.member-container').innerHTML = '<p>Error loading members data. Please try again later.</p>';
+            }
+        }
+        // Handle navigation and page switching
+        $(document).ready(function() {
+            // Initially hide all pages except home
+            $('.page').removeClass('active');
+            $('#home').addClass('active');
+
+            // Handle navigation clicks
+            $('nav a').click(function(e) {
+                e.preventDefault();
+                const targetId = $(this).attr('href');
+                $('.page').removeClass('active');
+                $(targetId).addClass('active');
+            });
+
+            // Render publications
+            initializeMainVideo();
+            loadAndRenderPublications();
+            createVideoGallery();
+            loadAndRenderMembers();
+        });
+    </script>
+</body>
+</html>
