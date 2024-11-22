@@ -225,6 +225,14 @@
             margin: 0 auto;
             display: block;
         }
+        .main-video::-webkit-media-controls {
+            background-color: rgba(0, 0, 0, 0.0);
+        }
+
+        .main-video::-webkit-media-controls-panel {
+            display: flex;
+            padding: 0 10px;
+        }
 
         .main-video-container {
             margin-bottom: 2rem;
@@ -403,18 +411,29 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
+
         .publication-thumbnail {
             flex: 0 0 200px;
             margin-right: 1.5rem;
             position: relative;
+            aspect-ratio: 16/9;
+            width: 200px;
+            overflow: hidden;
+            border-radius: 8px;
         }
 
         .publication-thumbnail img,
         .publication-thumbnail video {
-            width: 200px;
-            height: 150px;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 8px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .publication-thumbnail video::-webkit-media-controls {
+            display: none !important;
         }
 
         .video-overlay {
@@ -480,6 +499,12 @@
             font-size: 0.85rem;     /* reduced from 0.9rem */
         }
 
+        .publication-venue strong {
+            color: #003366;
+            font-style: normal;
+            padding: 0.2rem 0;
+            display: inline-block;
+        }
         .publication-abstract {
             color: #444;
             line-height: 1.4;      /* reduced from 1.5 */
@@ -561,48 +586,13 @@
             <div class="news-container">
                 <h2 class="section-title">News</h2>
                 <div class="news-section">
-                    <div class="news-item">
-                        <div class="news-date">November 2024</div>
-                        <div class="news-content">Early Career Keynote at CoRL 2024 on <a href="https://www.youtube.com/watch?v=H-a748rN9M4">Robot Learning from Embodied Human Data</a> <a href="corl24.pdf">(slides)</a></div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-date">July 2024</div>
-                        <div class="news-content"> $1M NSF grant awarded to support our lab to <a href="https://www.nsf.gov/awardsearch/showAward?AWD_ID=2409016&HistoricalAwards=false">develop generative models for robot training and validation</a></div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-date">July 2024</div>
-                        <div class="news-content">Hosting workshop on <a href="https://sites.google.com/view/data-generation-for-robotics/">Data Generation for Robotics</a> at RSS 2024</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-date">June 2024</div>
-                        <div class="news-content">Invited talk at Toyota Research Institute</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-date">May 2024</div>
-                        <div class="news-content"><a href="https://ieeexplore.ieee.org/abstract/document/10227514">LEAGUE</a> awarded IEEE RA-L Best Paper Honorable Mention (5/1200) and Open-X-Embodiment won Best Conference Paper at ICRA'24</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-date">December 2023</div>
-                        <div class="news-content">Received support from Autodesk to work on high-precision robotic manipulation</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-date">November 2023</div>
-                        <div class="news-content"><a href="https://mimic-play.github.io/">MimicPlay</a> awarded Best Paper and Best Systems Paper Finalist at CoRL 2023 (2/270)</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-date">November 2023</div>
-                        <div class="news-content">Presenting 6 papers at CoRL 2023</div>
-                    </div>
-                    <div class="news-item">
-                        <div class="news-date">November 2023</div>
-                        <div class="news-content">Invited talk at CoRL 2023 (<a href="https://yantianzha.github.io/crl.github.io/">workshop link</a>)</div>
-                    </div>
+                    <!-- News items will be added here by JavaScript -->
                 </div>
             </div>
     
             <div class="main-video-container">
                 <h2 class="section-title">Research Highlights</h2>
-                <video id="mainVideo" class="main-video" autoplay muted loop playsinline>
+                <video id="mainVideo" class="main-video" autoplay muted loop playsinline controls>
                     <source src="" type="video/mp4">
                 </video>
             </div>
@@ -687,38 +677,27 @@
                 gallery.appendChild(videoItem);
             });
         }
+
+        async function loadAndRenderNews() {
+            try {
+                const response = await fetch('news.json');
+                const data = await response.json();
+                
+                const newsSection = document.querySelector('.news-section');
+                newsSection.innerHTML = data.news.map(item => `
+                    <div class="news-item">
+                        <div class="news-date">${item.date}</div>
+                        <div class="news-content">${item.content}</div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading news:', error);
+                document.querySelector('.news-section').innerHTML = '<p>Error loading news. Please try again later.</p>';
+            }
+        }
         // Example publications array with mixed media types
         const publications = []
 
-        // Function to create thumbnail HTML based on type
-        function createThumbnailHTML(thumbnail) {
-            if (thumbnail.type === "video") {
-                return `
-                    <div class="publication-thumbnail">
-                        <video 
-                            loop 
-                            muted 
-                            playsinline 
-                            ${thumbnail.poster ? `poster="${thumbnail.poster}"` : ''}
-                            onmouseover="this.play()" 
-                            onmouseout="this.pause();this.currentTime=0;">
-                            <source src="assets/${thumbnail.url}" type="video/mp4">
-                        </video>
-                        <div class="video-overlay">
-                            <div class="play-icon"></div>
-                        </div>
-                    </div>
-                `;
-            } else {
-                return `
-                    <div class="publication-thumbnail">
-                        <img src="assets/${thumbnail.url}" alt="Publication thumbnail">
-                    </div>
-                `;
-            }
-        }
-
-        // Function to create HTML for a single publication
         function createPublicationHTML(pub) {
             const linksHTML = pub.links ? 
                 Object.entries(pub.links)
@@ -744,7 +723,32 @@
             `;
         }
 
-        // Modified renderPublications function to load from JSON
+        function createThumbnailHTML(thumbnail) {
+            if (thumbnail.type === "video") {
+                return `
+                    <div class="publication-thumbnail">
+                        <video 
+                            loop 
+                            muted 
+                            playsinline
+                            data-autoplay
+                            ${thumbnail.poster ? `poster="${thumbnail.poster}"` : ''}>
+                            <source src="assets/${thumbnail.url}" type="video/mp4">
+                        </video>
+                        <div class="video-overlay">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="publication-thumbnail">
+                        <img src="assets/${thumbnail.url}" alt="Publication thumbnail">
+                    </div>
+                `;
+            }
+        }
+
         async function loadAndRenderPublications() {
             try {
                 const response = await fetch('publications.json');
@@ -754,9 +758,31 @@
                 publicationList.innerHTML = data.publications
                     .map(pub => createPublicationHTML(pub))
                     .join('');
+                
+                // Set up intersection observer after rendering publications
+                setupVideoObservers();
             } catch (error) {
                 console.error('Error loading publications:', error);
             }
+        }
+
+        function setupVideoObservers() {
+            const videos = document.querySelectorAll('video[data-autoplay]');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.play();
+                    } else {
+                        entry.target.pause();
+                        entry.target.currentTime = 0;
+                    }
+                });
+            }, {
+                threshold: 0.5  // Video plays when 50% visible
+            });
+
+            videos.forEach(video => observer.observe(video));
         }
 
         async function loadAndRenderMembers() {
@@ -793,12 +819,11 @@
             }
         }
         // Handle navigation and page switching
+        // Update document ready function
         $(document).ready(function() {
-            // Initially hide all pages except home
             $('.page').removeClass('active');
             $('#home').addClass('active');
 
-            // Handle navigation clicks
             $('nav a').click(function(e) {
                 e.preventDefault();
                 const targetId = $(this).attr('href');
@@ -806,11 +831,11 @@
                 $(targetId).addClass('active');
             });
 
-            // Render publications
             initializeMainVideo();
             loadAndRenderPublications();
-            createVideoGallery();
             loadAndRenderMembers();
+            loadAndRenderNews(); // Add this line
+            createVideoGallery();
         });
     </script>
 </body>

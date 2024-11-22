@@ -24,7 +24,7 @@
         {
           "name": "Vaibhav Saxena",
           "role": "ML Ph.D. Student",
-          "website": "https://www.cs.toronto.edu/~vaibhav/",
+          "website": "https://sites.google.com/view/vaibhavsaxena",
           "image": "member_pics/vaibhav_saxena.jpg"
         },
         {
@@ -82,6 +82,12 @@
           "role": "M.S. Student",
           "website": "#",
           "image": "member_pics/yixin_zhang.jpg"
+        },
+        {
+          "name": "Mengying Lin",
+          "role": "M.S. Student",
+          "website": "https://cassie-lim.github.io/",
+          "image": "member_pics/mengying_lin.jpg"
         }
       ],
       "undergrad_students": [
@@ -100,7 +106,7 @@
         {
           "name": "Alan Tian",
           "role": "Undergrad Student",
-          "website": "https://www.linkedin.com/in/alan-tian-a07012205/",
+          "website": "https://alantian2018.github.io/",
           "image": "member_pics/alan_tian.jpg"
         },
         {
@@ -108,6 +114,12 @@
           "role": "Undergrad Student",
           "website": "#",
           "image": "member_pics/ryan_punamiya.jpg"
+        },
+        {
+          "name": "Tony (Huajin) Tu",
+          "role": "Undergrad Student",
+          "website": "#",
+          "image": "member_pics/huajin_tu.png"
         }
       ],
       "visiting_students": [

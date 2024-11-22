@@ -2,20 +2,21 @@
     "publications": [
       {
         "title": "EgoMimic: Scaling Imitation Learning through Egocentric Video",
-        "authors": "Simar Kareer, Dhruv Patel, Ryan Punamiya, Pranay Mathur, Shuo Cheng, Chen Wang, Judy Hoffman, Danfei Xu",
+        "authors": "Simar Kareer, Dhruv Patel*, Ryan Punamiya*, Pranay Mathur*, Shuo Cheng, Chen Wang, Judy Hoffman*, Danfei Xu*",
         "venue": "In Submission",
         "abstract": "Robot Learning from Egocentric Human Data",
         "thumbnail": {
-          "type": "image",
-          "url": "egomimic_kareer2024.jpg"
+          "type": "video",
+          "url": "egomimic.mp4"
         },
         "links": {
+          "paper": "https://arxiv.org/abs/2410.24221",
           "website": "https://egomimic.github.io/"
         }
       },
       {
         "title": "NOD-TAMP: Multi-Step Manipulation Planning with Neural Object Descriptors",
-        "authors": "Shuo Cheng, Caelan Garrett, Ajay Mandlekar, Danfei Xu",
+        "authors": "Shuo Cheng, Caelan Garrett*, Ajay Mandlekar*, Danfei Xu",
         "venue": "CoRL 2024",
         "abstract": "Solving multi-step manipulation problems with zero-shot generalization.",
         "thumbnail": {
@@ -28,7 +29,7 @@
       },
       {
         "title": "MimicTouch: Leveraging Multi-modal Human Tactile Demonstrations for Contact-rich Manipulation",
-        "authors": "Kelin Yu, Yunhai Han, Qixian Wang, Vaibhav Saxena, Danfei Xu, Ye Zhao",
+        "authors": "Kelin Yu*, Yunhai Han*, Qixian Wang, Vaibhav Saxena, Danfei Xu*, Ye Zhao*",
         "venue": "CoRL 2024",
         "abstract": "Learning tactile control policies from human hand demonstrations.",
         "thumbnail": {
@@ -68,8 +69,8 @@
         "venue": "CVPR 2024",
         "abstract": "A principled Bayesian framework to model uncertainty in NeRF for active mapping.",
         "thumbnail": {
-          "type": "image",
-          "url": "nvf_xue2024.png"
+          "type": "video",
+          "url": "nvf_xue2024.mp4"
         },
         "links": {
           "paper": "https://arxiv.org/abs/2406.06948"
@@ -77,13 +78,13 @@
       },
       {
         "title": "Open X-Embodiment: Robotic Learning Datasets and RT-X Models",
-        "authors": "Many Author",
+        "authors": "Many Authors",
         "venue": "ICRA 2024",
         "abstract": "",
         "awards": ["Best Paper Award"],
         "thumbnail": {
           "type": "image",
-          "url": "openx2024.png"
+          "url": "openx.png"
         },
         "links": {
           "paper": "https://arxiv.org/abs/2310.08864",
@@ -549,7 +550,7 @@
         "abstract": "Deformable object manipulation with an application of personal assitive robot.",
         "thumbnail": {
             "type": "image",
-            "url": "unfolding.jpg"
+            "url": "unfolding.png"
         },
         "links": {
             "paper": "https://arxiv.org/abs/1607.04411",

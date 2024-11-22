@@ -1,0 +1,40 @@
+{
+    "news": [
+        {
+            "date": "November 2024",
+            "content": "Early Career Keynote at CoRL 2024 on <a href=\"https://www.youtube.com/watch?v=H-a748rN9M4\">Robot Learning from Embodied Human Data</a> <a href=\"corl24.pdf\">(slides)</a>"
+        },
+        {
+            "date": "July 2024",
+            "content": "$1M NSF grant awarded to support our lab to <a href=\"https://www.nsf.gov/awardsearch/showAward?AWD_ID=2409016&HistoricalAwards=false\">develop generative models for robot training and validation</a>"
+        },
+        {
+            "date": "July 2024",
+            "content": "Hosting workshop on <a href=\"https://sites.google.com/view/data-generation-for-robotics/\">Data Generation for Robotics</a> at RSS 2024"
+        },
+        {
+            "date": "June 2024",
+            "content": "Invited talk at Toyota Research Institute"
+        },
+        {
+            "date": "May 2024",
+            "content": "<a href=\"https://ieeexplore.ieee.org/abstract/document/10227514\">LEAGUE</a> awarded IEEE RA-L Best Paper Honorable Mention (5/1200) and Open-X-Embodiment won Best Conference Paper at ICRA'24"
+        },
+        {
+            "date": "December 2023",
+            "content": "Received support from Autodesk to work on high-precision robotic manipulation"
+        },
+        {
+            "date": "November 2023",
+            "content": "<a href=\"https://mimic-play.github.io/\">MimicPlay</a> awarded Best Paper and Best Systems Paper Finalist at CoRL 2023 (2/270)"
+        },
+        {
+            "date": "November 2023",
+            "content": "Presenting 6 papers at CoRL 2023"
+        },
+        {
+            "date": "November 2023",
+            "content": "Invited talk at CoRL 2023 (<a href=\"https://yantianzha.github.io/crl.github.io/\">workshop link</a>)"
+        }
+    ]
+}
